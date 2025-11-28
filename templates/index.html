@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Traficom - Ilmailun poikkeamailmoitus</title>
+    <title>Ilmailun poikkeamailmoitus (PoC)</title>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --traficom-dark-blue: #003975;
-            --traficom-action-blue: #0064af;
-            --traficom-bg-grey: #f5f5f5;
-            --traficom-red: #d92027;
+            /* Käytetään yhä samoja värejä, mutta neutraalissa kontekstissa */
+            --main-color: #003975;
+            --action-color: #0064af;
+            --bg-grey: #f5f5f5;
+            --alert-red: #d92027;
             --text-main: #333333;
             --white: #ffffff;
         }
 
         body {
             font-family: 'Source Sans Pro', Arial, sans-serif;
-            background-color: var(--traficom-bg-grey);
+            background-color: var(--bg-grey);
             color: var(--text-main);
             margin: 0;
             padding: 0;
@@ -41,7 +42,7 @@
         .logo {
             font-weight: 700;
             font-size: 24px;
-            color: var(--traficom-dark-blue);
+            color: var(--main-color);
             text-transform: uppercase;
             letter-spacing: 0.5px;
             display: flex;
@@ -49,7 +50,7 @@
         }
         
         .logo span {
-            color: var(--traficom-red);
+            color: #888; /* Neutraali harmaa piste */
             font-size: 30px;
             line-height: 0;
             margin-left: 4px;
@@ -62,6 +63,8 @@
             color: #666;
             margin-top: -2px;
             margin-left: 15px;
+            border-left: 1px solid #ccc;
+            padding-left: 15px;
         }
 
         .main-content {
@@ -73,7 +76,7 @@
         }
 
         h1 {
-            color: var(--traficom-dark-blue);
+            color: var(--main-color);
             font-size: 34px;
             font-weight: 300;
             margin-top: 0;
@@ -96,7 +99,7 @@
             display: block;
             font-weight: 700;
             margin-bottom: 8px;
-            color: var(--traficom-dark-blue);
+            color: var(--main-color);
             font-size: 16px;
         }
 
@@ -124,8 +127,8 @@
         }
 
         input:focus, select:focus, textarea:focus {
-            outline: 2px solid var(--traficom-dark-blue);
-            border-color: var(--traficom-dark-blue);
+            outline: 2px solid var(--main-color);
+            border-color: var(--main-color);
         }
 
         textarea {
@@ -148,7 +151,7 @@
         }
 
         .btn-submit {
-            background-color: var(--traficom-dark-blue);
+            background-color: var(--main-color);
             color: var(--white);
             border: none;
             padding: 15px 40px;
@@ -162,21 +165,21 @@
         }
 
         .btn-submit:hover {
-            background-color: var(--traficom-action-blue);
+            background-color: var(--action-color);
         }
         
         .poc-alert {
-            background-color: #fff3cd; 
-            color: #856404; 
+            background-color: #e2e3e5; 
+            color: #383d41; 
             padding: 15px; 
-            border: 1px solid #ffeeba; 
+            border: 1px solid #d6d8db; 
             margin-bottom: 30px; 
             border-radius: 4px;
             font-size: 14px;
         }
 
         footer {
-            background-color: var(--traficom-dark-blue);
+            background-color: var(--main-color);
             color: var(--white);
             padding: 40px 0;
             margin-top: 60px;
@@ -194,8 +197,8 @@
 
 <header>
     <div class="header-inner">
-        <div class="logo">TRAFICOM<span>.</span></div>
-        <span class="agency-name">Liikenne- ja viestintävirasto</span>
+        <div class="logo">AVIATION REPORTING<span>.</span></div>
+        <span class="agency-name">PoC / Testiympäristö</span>
     </div>
 </header>
 
@@ -203,11 +206,12 @@
     <h1>Ilmoita ilmailun poikkeamasta</h1>
     
     <div class="poc-alert">
-        <strong>HUOM (PoC):</strong> Tämä on tekninen testiversio. Lähetetyt ilmoitukset eivät mene viranomaiskäsittelyyn.
+        <strong>HUOM (PoC):</strong> Tämä on epävirallinen testiversio. Lähetetyt ilmoitukset tallentuvat vain testitietokantaan.
     </div>
 
     <p class="ingress">
-        Käytä tätä lomaketta ilmoittaaksesi havainnoista, vaaratilanteista tai onnettomuuksista.
+        Käytä tätä lomaketta ilmoittaaksesi havainnoista, vaaratilanteista tai onnettomuuksista. 
+        Tiedot muunnetaan ECCAIRS 2 -yhteensopivaan E5X-formaattiin.
     </p>
 
     <form action="/generate" method="POST">
@@ -341,7 +345,7 @@
 
 <footer>
     <div class="footer-content">
-        &copy; 2024 Liikenne- ja viestintävirasto Traficom
+        &copy; 2024 PoC Project Team
     </div>
 </footer>
 
