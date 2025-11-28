@@ -79,6 +79,11 @@ def index_sv():
     """Ruotsinkielinen lomake"""
     return render_template('index_sv.html')
 
+@app.route('/sme')
+def index_sme():
+    """Saamenkielinen lomake"""
+    return render_template('index_sme.html')
+
 @app.route('/generate', methods=['POST'])
 def generate_report():
     # 1. Haetaan lomakedata (Toimii molemmille kielille, koska 'name'-attribuutit ovat samat)

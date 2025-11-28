@@ -7,13 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Käytetään yhä samoja värejä, mutta neutraalissa kontekstissa */
+            /* Neutraali väripaletti (edelleen viranomaistyylinen sininen) */
             --main-color: #003975;
             --action-color: #0064af;
             --bg-grey: #f5f5f5;
             --alert-red: #d92027;
             --text-main: #333333;
             --white: #ffffff;
+            --border-color: #8c8c8c;
         }
 
         body {
@@ -25,6 +26,7 @@
             line-height: 1.5;
         }
 
+        /* YLÄPALKKI */
         header {
             background-color: var(--white);
             border-bottom: 1px solid #e1e1e1;
@@ -50,7 +52,7 @@
         }
         
         .logo span {
-            color: #888; /* Neutraali harmaa piste */
+            color: #999; /* Neutraali piste */
             font-size: 30px;
             line-height: 0;
             margin-left: 4px;
@@ -67,12 +69,14 @@
             padding-left: 15px;
         }
 
+        /* SISÄLTÖLAATIKKO */
         .main-content {
             max-width: 800px;
             margin: 40px auto;
             background: var(--white);
             padding: 50px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-radius: 2px;
         }
 
         h1 {
@@ -91,6 +95,7 @@
             font-weight: 400;
         }
 
+        /* LOMAKE-ELEMENTIT */
         .form-section {
             margin-bottom: 30px;
         }
@@ -118,17 +123,19 @@
         textarea {
             width: 100%;
             padding: 12px 15px;
-            border: 1px solid #8c8c8c;
+            border: 1px solid var(--border-color);
             border-radius: 0;
             font-size: 16px;
             font-family: 'Source Sans Pro', sans-serif;
             background-color: #fff;
             box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         input:focus, select:focus, textarea:focus {
-            outline: 2px solid var(--main-color);
+            outline: none;
             border-color: var(--main-color);
+            box-shadow: 0 0 0 2px rgba(0, 57, 117, 0.1);
         }
 
         textarea {
@@ -136,6 +143,7 @@
             resize: vertical;
         }
 
+        /* KAKSIPALSTAINEN ASETTELU */
         .row {
             display: flex;
             gap: 20px;
@@ -150,6 +158,7 @@
             .main-content { padding: 20px; margin: 0; }
         }
 
+        /* PAINIKE */
         .btn-submit {
             background-color: var(--main-color);
             color: var(--white);
@@ -162,20 +171,43 @@
             display: inline-block;
             margin-top: 20px;
             transition: background-color 0.2s;
+            width: 100%;
         }
 
         .btn-submit:hover {
             background-color: var(--action-color);
         }
         
+        /* VAROITUSLAATIKKO (POC) */
         .poc-alert {
-            background-color: #e2e3e5; 
-            color: #383d41; 
+            background-color: #fff3cd; 
+            color: #856404; 
             padding: 15px; 
-            border: 1px solid #d6d8db; 
+            border: 1px solid #ffeeba; 
             margin-bottom: 30px; 
             border-radius: 4px;
             font-size: 14px;
+        }
+
+        /* KIELIVALIKKO */
+        .lang-switch {
+            text-align: right;
+            margin-bottom: 20px;
+            font-size: 14px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .lang-switch a {
+            text-decoration: none;
+            color: var(--action-color);
+            font-weight: 600;
+            margin: 0 5px;
+        }
+        .lang-switch span.active {
+            font-weight: 700;
+            color: #333;
+            margin: 0 5px;
+            border-bottom: 2px solid var(--main-color);
         }
 
         footer {
@@ -203,25 +235,29 @@
 </header>
 
 <div class="main-content">
-<div class="lang-switch" style="text-align: right; margin-bottom: 20px;">
-        <strong>Suomeksi</strong> | <a href="/sv" style="text-decoration: none; color: #0064af; font-weight: 600;">På svenska</a>
+    <div class="lang-switch">
+        <span class="active">Suomi</span> | 
+        <a href="/sv">Svenska</a> | 
+        <a href="/sme">Davvisámegiella</a>
     </div>
+
     <h1>Ilmoita ilmailun poikkeamasta</h1>
     
     <div class="poc-alert">
-        <strong>HUOM (PoC):</strong> Tämä on epävirallinen testiversio. Lähetetyt ilmoitukset tallentuvat vain testitietokantaan.
+        <strong>HUOM (PoC):</strong> Tämä on epävirallinen testiversio. Lähetetyt ilmoitukset eivät mene viranomaiskäsittelyyn, vaan tallentuvat testijärjestelmään.
     </div>
 
     <p class="ingress">
         Käytä tätä lomaketta ilmoittaaksesi havainnoista, vaaratilanteista tai onnettomuuksista. 
-        Tiedot muunnetaan ECCAIRS 2 -yhteensopivaan E5X-formaattiin.
+        Tiedot muunnetaan automaattisesti ECCAIRS 2 -yhteensopivaan muotoon.
     </p>
 
     <form action="/generate" method="POST">
+        
         <div class="form-section">
             <label for="headline">Otsikko (Headline)</label>
             <span class="help-text">Lyhyt, kuvaava otsikko tapahtumalle.</span>
-            <input type="text" id="headline" name="headline" placeholder="Esim. Linnun törmäys laskussa">
+            <input type="text" id="headline" name="headline" placeholder="Esim. Linnun törmäys laskussa" required>
         </div>
         
         <div class="form-section">
@@ -241,13 +277,13 @@
         <div class="row">
             <div class="col">
                 <label for="time">Tapahtuma-aika (UTC tai paikallinen)</label>
-                <input type="datetime-local" id="time" name="time">
+                <input type="datetime-local" id="time" name="time" required>
             </div>
             
             <div class="col">
                 <label for="location">Tapahtumapaikka</label>
                 <span class="help-text">ICAO-koodi (EFHK) tai paikkakunta.</span>
-                <input type="text" id="location" name="location" placeholder="Esim. EFHK">
+                <input type="text" id="location" name="location" placeholder="Esim. EFHK" required>
             </div>
         </div>
 
@@ -334,7 +370,8 @@
 
         <div class="form-section">
             <label for="narrative">Tapahtuman kuvaus (Narrative)</label>
-            <textarea id="narrative" name="narrative" placeholder="Kirjoita kuvaus tähän..."></textarea>
+            <span class="help-text">Kuvaile tilanne omin sanoin mahdollisimman tarkasti.</span>
+            <textarea id="narrative" name="narrative" placeholder="Kirjoita kuvaus tähän..." required></textarea>
         </div>
 
         <div class="form-section">
